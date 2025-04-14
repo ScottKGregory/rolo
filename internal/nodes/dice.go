@@ -1,3 +1,4 @@
+// Package nodes provides additional functionality for parsley
 package nodes
 
 import (
@@ -8,12 +9,14 @@ import (
 	"github.com/scottkgregory/parsley"
 )
 
+// DiceNode is used to perform dice rolls
 type DiceNode struct {
 	left, right parsley.Node
 }
 
 var _ parsley.Node = &DiceNode{}
 
+// NewDiceNode generates a new dice node
 func NewDiceNode(left, right parsley.Node) *DiceNode {
 	return &DiceNode{left, right}
 }
@@ -33,12 +36,12 @@ func (d *DiceNode) Eval(data map[string]any) (any, error) {
 
 	lf, err := parsley.ToFloat64(leftVal)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("left side was not valid float: %w", err)
 	}
 
 	rf, err := parsley.ToFloat64(rightVal)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("right side was not valid float: %w", err)
 	}
 
 	li := int(math.Round(lf))
