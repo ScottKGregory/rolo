@@ -59,7 +59,7 @@ type mockNode struct {
 var _ parsley.Node = &mockNode{}
 
 // Eval implements parsley.Node.
-func (m *mockNode) Eval(data map[string]any) (any, error) {
+func (m *mockNode) Eval(_ map[string]any) (any, error) {
 	return m.ret, nil
 }
 
